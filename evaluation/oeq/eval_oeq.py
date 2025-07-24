@@ -30,7 +30,6 @@ def compute_bertscore(predictions, references):
 	## clip scores to [0,1]
 	bertscores = np.array([clip(num) for num in bertscores])
 
-	# return bertscores.mean()
 	return bertscores
 
 def compute_bleu(generated_texts, reference_texts):
@@ -44,12 +43,11 @@ def compute_bleu(generated_texts, reference_texts):
         if not gen.strip():  # Handle empty generated text
             bleu_scores.append(0.0)
         else:
-            gen_tokens = gen.split()  # Tokenize the generated text
-            ref_tokens = ref.split()  # Tokenize the reference text
+            gen_tokens = gen.split()
+            ref_tokens = ref.split()
             score = sentence_bleu([ref_tokens], gen_tokens, smoothing_function=smoothing_function)
             bleu_scores.append(score)
 
-    # average_bleu = sum(bleu_scores) / len(bleu_scores)
     return bleu_scores
 
 def compute_rouge(predictions, references):
@@ -64,22 +62,16 @@ def compute_rouge(predictions, references):
 		
 		rouge1f_scores.append(r1f)
 		
-	# for checking comparison with composite
-	# return np.array(rouge1f_scores).mean()
 	return np.array(rouge1f_scores)
 
-dataset = ds = load_dataset('abazoge/MediQAl', name="qroc", trust_remote_code=True)
+dataset = ds = load_dataset('ANR-MALADES/MediQAl', name="oeq", trust_remote_code=True)
 dataset = dataset['test']
 
 print(dataset)
 
 list_files = [
-	'../oeq/8B/results_BioMistral-BioMistral-7B-DARE_qroc_long.json',
-	'../oeq/8B/results_deepseek-ai-DeepSeek-R1-Distill-Llama-8B_qroc_long.json',
-	'../oeq/8B/results_deepseek-ai-DeepSeek-R1-Distill-Qwen-7B_qroc_long.json',
-	'../oeq/8B/results_FreedomIntelligence-HuatuoGPT-o1-8B_qroc_long.json',
-	'../oeq/8B/results_hongzhouyu-FineMedLM-o1_qroc_long.json',
-	'../oeq/8B/results_TsinghuaC3I-Llama-3.1-8B-UltraMedical_qroc_long.json'
+	'../oeq/8B/results_BioMistral-BioMistral-7B-DARE.json',
+	'../oeq/8B/results_deepseek-ai-DeepSeek-R1-Distill-Llama-8B.json',
 ]
 
 final_list = []
@@ -185,5 +177,5 @@ for f in list_files:
 		})
 
 
-with open('result_qroc_8B.json', 'w') as json_file:
+with open('result_oeq_8B.json', 'w') as json_file:
     json.dump(final_list, json_file, indent=4)
