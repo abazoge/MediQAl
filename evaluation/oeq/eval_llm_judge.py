@@ -62,9 +62,7 @@ for model_name, file_empty, file_res in list_files:
 
 	for d in data_res:
 		type_question = df.loc[d['key'], 'question_type']
-		# extract value from prediction
 		ANSWER_PATTERN = r"\[\[(\d+)\]\]"
-		# print(d['key'])
 		try:
 			response = d['response']['candidates'][0]['content']['parts'][0]['text']
 			match = re.findall(ANSWER_PATTERN, response)
