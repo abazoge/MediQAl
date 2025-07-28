@@ -84,6 +84,7 @@ for file in list_files:
 	res_empty = []
 
 	for r in res:
+		# filter-out instances without answer for API request
 		if r['answer_a'] == "":
 			res_empty.append(r)
 		else:
