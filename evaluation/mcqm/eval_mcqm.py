@@ -37,32 +37,16 @@ for d in tqdm(data):
 	df.set_index('id', inplace=True)
 	type_question = df.loc[d['identifier'], 'question_type']
 
-	ANSWER_PATTERN_MULTICHOICE = r"(?i)Answer[ \t]*:[ \t]*\$?([A-E](?:[ \t]*,[ \t]*[A-E])*)\$?"
-	ANSWER_PATTERN_MULTICHOICE_bis = r"(?i)ANSWER[ \t]*:[ \t]*\$?([A-E](?:[ \t]*,[ \t]*[A-E])*)\$?"
-	ANSWER_PATTERN_MULTICHOICE_2 = r"(?i)Answer[ \t]*:\*\*[ \t]*\$?([A-E](?:[ \t]*,[ \t]*[A-E])*)\$?"
-	ANSWER_PATTERN_MULTICHOICE_2_bis = r"(?i)ANSWER[ \t]*:\*\*[ \t]*\$?([A-E](?:[ \t]*,[ \t]*[A-E])*)\$?"
-	ANSWER_PATTERN_MULTICHOICE_3 = r"(?i)Réponse[ \t]*:[ \t]*\$?([A-E](?:[ \t]*,[ \t]*[A-E])*)\$?"
-	ANSWER_PATTERN_MULTICHOICE_4 = r"(?i)Réponse[ \t]*:\*\*[ \t]*\$?([A-E](?:[ \t]*,[ \t]*[A-E])*)\$?"
+	ANSWER_PATTERN_MULTICHOICE = r"(?i)(?:Answer|Réponse)[ \t]*:[ \t]*\$?([A-E](?:[ \t]*,[ \t]*[A-E])*)\$?"
+	ANSWER_PATTERN_MULTICHOICE_bis = r"(?i)(?:Answer|Réponse)[ \t]*:\*\*[ \t]*\$?([A-E](?:[ \t]*,[ \t]*[A-E])*)\$?"
 
 	match = re.findall(ANSWER_PATTERN_MULTICHOICE, d['generated_text'])
 	match_bis = re.findall(ANSWER_PATTERN_MULTICHOICE_bis, d['generated_text'])
-	match2 = re.findall(ANSWER_PATTERN_MULTICHOICE_2, d['generated_text'])
-	match2_bis = re.findall(ANSWER_PATTERN_MULTICHOICE_2_bis, d['generated_text'])
-	match3 = re.findall(ANSWER_PATTERN_MULTICHOICE_3, d['generated_text'])
-	match4 = re.findall(ANSWER_PATTERN_MULTICHOICE_4, d['generated_text'])
 
 	if match:
 		extracted_answer = match[-1]
 	elif match_bis:
 		extracted_answer = match_bis[-1]
-	elif match2:
-		extracted_answer = match2[-1]
-	elif match2_bis:
-		extracted_answer = match2_bis[-1]
-	elif match3:
-		extracted_answer = match3[-1]
-	elif match4:
-		extracted_answer = match4[-1]
 	else:
 		extracted_answer = None
 
