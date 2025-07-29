@@ -26,13 +26,13 @@ MediQAl/
 ## 📖 Citation
 
 ```bibtex
-@misc{bazoge2025mediqal,
+@misc{bazoge2025mediqalfrenchmedicalquestion,
       title={MediQAl: A French Medical Question Answering Dataset for Knowledge and Reasoning Evaluation}, 
       author={Adrien Bazoge},
       year={2025},
-      eprint={-},
+      eprint={2507.20917},
       archivePrefix={arXiv},
       primaryClass={cs.CL},
-      url={-}, 
+      url={https://arxiv.org/abs/2507.20917}, 
 }
 ```
